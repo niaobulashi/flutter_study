@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'basic_list.dart';
-import 'horizontal_list.dart';
-import 'long_list.dart';
+import 'package:flutter_05_lists/basic_list.dart';
+import 'package:flutter_05_lists/grid_list.dart';
+import 'package:flutter_05_lists/horizontal_list.dart';
+import 'package:flutter_05_lists/long_list.dart';
+import 'package:flutter_05_lists/mixed_list.dart';
+import 'package:flutter_05_lists/random_words.dart';
 
 void main() => runApp(MyApp());
 
@@ -78,6 +81,27 @@ class _MyHomePageState extends State<MyHomePage>{
                       MaterialPageRoute(builder: (context) => LongList()));
                 },
               child: Text('长List'),
+            ),
+            new RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MixedList()));
+                },
+              child: Text('使用不同类型的子项创建列表'),
+            ),
+            new CupertinoButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => GridList()));
+                },
+              child: Text('网格'),
+            ),
+              new FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RandomWordsApp()));
+                },
+                child: Text('回顾之前的列表，点💗'),
             ),
           ],
         ),
