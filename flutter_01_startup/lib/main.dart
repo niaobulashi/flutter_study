@@ -1,11 +1,66 @@
-// Step 3 - Add a stateful widget
-
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import 'package:flutter_01_startup/hello_world.dart';
+import 'package:flutter_01_startup/random_words.dart';
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Hello World',
+      theme: new ThemeData(
+        primaryColor: Colors.blue[200]
+      ),
+      home: MyHomePage(title: 'Hello World Dome'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String title;
+  MyHomePage({Key key, this.title}) : super(key:key);
+
+  @override
+  State<StatefulWidget> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(widget.title),
+      ),
+      body: Align(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            new RaisedButton(
+                onPressed: () {
+                  Navigator.push(context, 
+                    MaterialPageRoute(builder: (context) => HelloWorld()),
+                  );
+                },
+              child: new Text('Hello World'),
+            ),
+            new RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RandomWords()),
+                  );
+                },
+              child: new Text('列表交互💗，加💗的保存在另外List'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/*class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -20,106 +75,18 @@ class MyApp extends StatelessWidget {
         body: new Center(
           child: new Text('Hello World'),
         ),
+        floatingActionButton: new FloatingActionButton(
+            tooltip: '跳转到列表',
+            child: new Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RandomWords()));
+            },
+        ),
       ),
 //  将上面的home注释掉，解开注释为列表加💗，保存加💗数据列表
 //      home: new RandomWords(),
     );
   }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  createState() => new RandomWordsState();
-}
-
-class RandomWordsState extends State<RandomWords> {
-  // 加载的List
-  final _suggestions = <WordPair>[];
-  // 这个集合存储用户喜欢（收藏）的单词对。Set中不允许重复的值
-  final _saved = new Set<WordPair>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-
-  Widget _buildSuggestions() {
-    return new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) {
-            return new Divider();
-          }
-
-          final index = i ~/ 2;// 向下取整
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-    return new ListTile(
-      title: new Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-//    final wordPair = new WordPair.random();
-//    return (new Text(wordPair.asPascalCase));
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Startup Name Generator'),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.folder_special), onPressed: _pushSaved),
-        ],
-      ),
-      // body部分为ListView
-      body: _buildSuggestions(),
-    );
-  }
-
-  void _pushSaved() {
-    Navigator.of(context).push(
-      new MaterialPageRoute(
-        builder: (context) {
-          final tiles = _saved.map(
-                (pair) {
-              return new ListTile(
-                title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(context: context,tiles: tiles).toList();
-
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
-            ),
-            body: new ListView(children: divided),
-          );
-        },
-      ),
-    );
-  }
-
-}
+}*/
 
