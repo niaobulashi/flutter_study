@@ -62,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage>{
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => BasicList()));
-                _showBottomDialog(context);
               },
               child: Text('基本List'),
             ),
@@ -70,7 +69,6 @@ class _MyHomePageState extends State<MyHomePage>{
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HorizontalList()));
-                _showBottomDialog(context);
               },
               child: Text('水平List'),
             ),
@@ -78,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage>{
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LongList()));
-                  _showBottomDialog(context);
                 },
               child: Text('长List'),
             ),
