@@ -33,22 +33,6 @@ class MyHomePage extends StatefulWidget{
 }
 
 class _MyHomePageState extends State<MyHomePage>{
-  void _showBottomDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (builder) {
-        return new Container(
-          color: Colors.black,
-          height: 350.0,
-          child: new Container(
-            child: new Center(
-              child: new Text('This is a modal sheet'),
-            ),
-          ),
-        );
-      }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
