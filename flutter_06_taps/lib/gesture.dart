@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/*处理点击*/
 class GestureApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

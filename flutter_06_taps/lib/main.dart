@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_06_taps/dismissing.dart';
 import 'package:flutter_06_taps/gesture.dart';
+import 'package:flutter_06_taps/ink_well.dart';
 
 void main() =>runApp(MyApp());
 
@@ -44,6 +46,20 @@ class _MyHomePageState extends State<MyHomePage>{
                     MaterialPageRoute(builder: (context) => GestureApp()));
                 },
               child: Text('Gestures Demo'),
+            ),
+            new RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => InkWellApp()));
+                },
+              child: Text('InkWell Demo'),
+            ),
+            new RaisedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DismissingApp()));
+                },
+              child: Text('Dismissing Demo'),
             ),
           ],
         ),

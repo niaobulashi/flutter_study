@@ -12,7 +12,6 @@ class LongList extends StatelessWidget {
   }
 }
 
-
 //使用长列表-----------------------start--------------
 class LongListApp extends StatelessWidget {
   final List<String> items;
