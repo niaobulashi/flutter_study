@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_09_catalog/animated_list.dart';
+
+import 'animated_list.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,9 +18,10 @@ class MyApp extends StatelessWidget{
   }
 }
 
-class MyHomePage extends StatefulWidget{
+class MyHomePage extends StatefulWidget {
   final String title;
-  MyHomePage({Key key, this.title}):super(key:key);
+
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -37,11 +39,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             new RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AnimatedListSample()));
-                },
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AnimatedListSample()));
+              },
               child: Text('AnimatedList'),
             ),
           ],
