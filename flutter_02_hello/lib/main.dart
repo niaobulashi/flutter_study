@@ -1,288 +1,105 @@
 import 'package:flutter/material.dart';
 
-//------------------TutorialHome-start------------------------
-class TutorialHome extends StatelessWidget {
-  int _counter = 0;
+import 'count_display.dart';
+import 'count_test.dart';
+import 'image_test.dart';
+import 'my_button.dart';
+import 'product.dart';
+import 'tutorial_home.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    //Scaffold是Material中主要的布局组件.
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.menu),
-          tooltip: 'Navigation menu',
-          onPressed: null,
-        ),
-        title: new Text('Example titl33e'),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          ),
-        ],
-      ),
-      //body占屏幕的大部分
-      body: new Center(
-        child: new Text('Hello, world!。' + 'Count=$_counter'),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        tooltip: 'Add', // used by assistive technologies
-        child: new Icon(Icons.add),
-        onPressed: null,
-      ),
-    );
-  }
-}
-//------------------TutorialHome-end------------------------
+void main() => runApp(MyApp());
 
-
-//------------------MyButton-start------------------------
-class MyButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {
-        print('MyButton was tapped!');
-      },
-      child: new Container(
-        height: 36.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5.0),
-          color: Colors.lightGreen[500],
-        ),
-        child: new Center(
-          child: new Text('Engage'),
-        ),
-      ),
-    );
-  }
-}
-//------------------MyButton-end------------------------
-
-//------------------HOME-start------------------------
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => new _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  int _counter = 0;
-  void _increment () {
-    setState(() {
-      _counter++;
-    });
-  }
-  void clearCount() {
-    setState(() {
-      _counter = 0;
-    });
-  }
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new IconButton(
-            icon: new Icon(Icons.menu),
-            onPressed: null,
-        ),
-        title: new Text('Example title'),
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(Icons.delete),
-              onPressed: clearCount,
-          ),
-          new IconButton(
-              icon: new Icon(Icons.menu),
-              onPressed: _increment,
-          ),
-        ],
+    return new MaterialApp(
+      title: 'flutter_02_hello',
+      theme: new ThemeData(
+        primaryColor: Colors.blue[200],
       ),
-      body: new Center(
-        child: new Text('Hello world，' + 'Count=$_counter'),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        tooltip: 'Add',
-        child: new Icon(Icons.add),
-        onPressed: _increment,
-      ),
-    );
-  }
-}
-//------------------HOME-end------------------------
-
-//------------------Counter-start------------------------
-class CounterDisplay extends StatelessWidget {
-  CounterDisplay({this.count});
-
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Text('Count: $count');
-  }
-}
-
-class CounterIncrementor extends StatelessWidget {
-  CounterIncrementor({this.onPressed});
-
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return new RaisedButton(
-      onPressed: onPressed,
-      child: new Text('Increment'),
+      home: MyHomePage(title: 'Flutter示例目录'),
     );
   }
 }
 
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() => new _CounterState();
+class MyHomePage extends StatefulWidget {
+  final String title;
+
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  void _increment() {
-    setState(() {
-      ++_counter;
-    });
-  }
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new Row(children: <Widget>[
-      new CounterIncrementor(onPressed: _increment),
-      new CounterDisplay(count: _counter),
-    ]);
-  }
-}
-//------------------Counter-end------------------------
-
-
-//------------------Product-start------------------------
-class Product {
-  const Product({this.name});
-  final String name;
-}
-
-typedef void CartChangedCallback(Product product, bool inCart);
-
-class ShoppingListItem extends StatelessWidget {
-  ShoppingListItem({Product product, this.inCart, this.onCartChanged})
-      : product = product,
-        super(key: new ObjectKey(product));
-
-  final Product product;
-  final bool inCart;
-  final CartChangedCallback onCartChanged;
-  final _saved = new Set<Product>();
-
-  Color _getColor(BuildContext context) {
-    return inCart ? Colors.black54 : Theme.of(context).primaryColor;
-  }
-
-  TextStyle _getTextStyle(BuildContext context) {
-    if (!inCart) return null;
-    return new TextStyle(
-      color: Colors.black54,
-      decoration: TextDecoration.lineThrough,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final alreadySaved = _saved.contains(product);
     // TODO: implement build
-    return new ListTile(
-      onTap: () {
-        onCartChanged(product, !inCart);
-      },
-      leading: new CircleAvatar(
-        backgroundColor: _getColor(context),
-        child: new Text(product.name[0]),
-      ),
-      title: new Text(product.name, style: _getTextStyle(context)),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-    );
-  }
-}
-//可以存储状态
-class ShoppingList extends StatefulWidget {
-  ShoppingList({Key key, this.products}) : super(key: key);
-  final List<Product> products;
-  @override
-  _ShoppingListState createState() => new _ShoppingListState();
-}
-
-class _ShoppingListState extends State<ShoppingList>{
-  Set<Product> _shoppingCart = new Set<Product>();
-
-  void _handleCartChanged(Product product, bool inCart) {
-    setState(() {
-      if (inCart) {
-        _shoppingCart.add(product);
-      } else {
-        _shoppingCart.remove(product);
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text('Shopping List'),
+        title: new Text(widget.title),
       ),
-      body: new ListView(
-        padding: new EdgeInsets.symmetric(vertical: 8.0),
-        children: widget.products.map((Product product) {
-          return new ShoppingListItem(
-            product: product,
-            inCart: _shoppingCart.contains(product),
-            onCartChanged: _handleCartChanged,
-          );
-        }).toList(),
+      body: Align(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            new RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TutorialHome()));
+              },
+              child: Text('TutorialHome'),
+            ),
+            new RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyButton()));
+              },
+              child: Text('MyButton'),
+            ),
+            new RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CountTest()));
+              },
+              child: Text('CountTest'),
+            ),
+            new RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Counter()));
+              },
+              child: Text('CountTest'),
+            ),
+            new RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => projectInfoList()));
+              },
+              child: Text('projectInfoList'),
+            ),
+            new RaisedButton(
+              onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => imageTextChange()));
+              },
+              child: Text('imageTextChange'),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-//------------------------Product end-------------------------------
-
-void main() {
-  runApp(new MaterialApp(
-    title: 'Shopping App',
-    home: new ShoppingList(
-      products: <Product>[
-        new Product(name: 'Eggs'),
-        new Product(name: 'Flour'),
-        new Product(name: 'Chocolat123e chips'),
-        new Product(name: 'Vagetables'),
-      ],
-    ),
-  ));
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
